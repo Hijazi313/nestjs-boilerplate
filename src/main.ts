@@ -1,12 +1,13 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import compression from 'compression';
-import { ValidationPipe, VersioningType } from '@nestjs/common';
+import { Logger, ValidationPipe, VersioningType } from '@nestjs/common';
 import { json, urlencoded } from 'express';
 import responseTime from 'response-time';
 import helmet from 'helmet';
 import { ConfigService } from '@nestjs/config';
 import cookieParser from 'cookie-parser';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -20,6 +21,9 @@ async function bootstrap() {
   app.use(responseTime());
 
   // Enable Validations
+  // ╦ ╦╔═╗╔═╗  ╔═╗╦  ╔═╗╔╗ ╔═╗╦    ╔═╗╦╔═╗╔═╗╔═╗
+  // ║ ║╚═╗║╣   ║ ╦║  ║ ║╠╩╗╠═╣║    ╠═╝║╠═╝║╣ ╚═╗
+  // ╚═╝╚═╝╚═╝  ╚═╝╩═╝╚═╝╚═╝╩ ╩╩═╝  ╩  ╩╩  ╚═╝╚═╝
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -38,8 +42,26 @@ async function bootstrap() {
   app.enableCors();
   app.use(helmet());
 
+  // ╔═╗╦ ╦╔═╗╔═╗╔═╗╔═╗╦═╗
+  // ╚═╗║║║╠═╣║ ╦║ ╦║╣ ╠╦╝
+  // ╚═╝╚╩╝╩ ╩╚═╝╚═╝╚═╝╩╚═
+  // READ MORE ABOUT SWAGGER FROM THIS DOCS
+  //! https://medium.com/@metesayan/how-to-document-your-nestjs-apis-with-swagger-42bdefd13698
+  const config = new DocumentBuilder()
+    .addBearerAuth()
+    .setTitle('NestJS Starter Boilderplate')
+    .setDescription('Description of the project')
+    .setVersion('1.0')
+    .addTag('nestjs-start-boilerplate')
+    .build();
+
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document);
+
+  const logger = new Logger();
   const configService = app.get<ConfigService>(ConfigService);
 
-  await app.listen(configService.get('PORT'));
+  await app.listen(configService.get('APP_PORT'));
+  logger.log(`APP IS LISTENING TO PORT ${configService.get('APP_PORT')} `);
 }
 bootstrap();
