@@ -10,7 +10,7 @@
 8. Repository patteren (Done)
 9. Prometheus setup (Done)
 10. Loging
-11. Swagger-setup
+11. Swagger-setup (Done)
 12. Pagination Setup (Done)
 13. Authentication (Done) and Authorization
 
