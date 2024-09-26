@@ -1,0 +1,14 @@
+{
+    "editor.tabSize": 2,
+    "editor.detectIndentation": false,
+    "editor.formatOnSave": true,
+    "files.exclude": {
+      "**/.git": true,
+      "**/.DS_Store": true,
+      "node_modules": true
+    },
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "javascript.updateImportsOnFileMove.enabled": "always"
+    // Add any other project-specific settings as needed
+  }
+  

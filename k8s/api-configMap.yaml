@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: boilerplate-api-config
+  # namespace: your-namespace
+data:
+  APP_PORT: '3000'
+  NODE_ENV: 'development'
+  MONGO_URI: 'mongodb://mongodb-service:27017/api'
+  JWT_ACCESS_TOKEN_SECRET: '2132183298310sklhadkjas'
+  JWT_ACCESS_TOKEN_EXPIRATION_MS: '3600000'
+  JWT_REFRESH_TOKEN_SECRET: '8xIdQbJBEffY2SIT5tgyR82podbZITau'
+  JWT_REFRESH_TOKEN_EXPIRATION_MS: '604800000'

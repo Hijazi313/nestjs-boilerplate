@@ -23,8 +23,14 @@ import config from './config/config';
           .default('development'),
         MONGO_URI: Joi.string().required(),
         JWT_ACCESS_TOKEN_SECRET: Joi.string().required(),
-        JWT_ACCESS_TOKEN_EXPIRATION_MS: Joi.number().default(3600000),
+        JWT_REFRESH_TOKEN_SECRET: Joi.string().required(),
+        JWT_ACCESS_TOKEN_EXPIRATION_MS: Joi.string()
+          .pattern(/^\d+$/)
+          .default(3600000),
       }),
+      validationOptions: {
+        convert: true,
+      },
     }),
     MongooseModule.forRootAsync({
       imports: [ConfigModule],

@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nestjs-api-deployment
+  # namespace: your-namespace
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nestjs-app
+  template:
+    metadata:
+      labels:
+        app: nestjs-app
+    spec:
+      containers:
+        - name: nestjs-container
+          image: ihijazi313/nestjs-boilerplate-api:0.9
+          env:
+            - name: APP_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: boilerplate-api-config
+                  key: APP_PORT
+            - name: NODE_ENV
+              valueFrom:
+                configMapKeyRef:
+                  name: boilerplate-api-config
+                  key: NODE_ENV
+            - name: MONGO_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: boilerplate-api-config
+                  key: MONGO_URI
+            - name: JWT_ACCESS_TOKEN_SECRET
+              valueFrom:
+                configMapKeyRef:
+                  name: boilerplate-api-config
+                  key: JWT_ACCESS_TOKEN_SECRET
+            - name: JWT_ACCESS_TOKEN_EXPIRATION_MS
+              valueFrom:
+                configMapKeyRef:
+                  name: boilerplate-api-config
+                  key: JWT_ACCESS_TOKEN_EXPIRATION_MS
+            - name: JWT_REFRESH_TOKEN_SECRET
+              valueFrom:
+                configMapKeyRef:
+                  name: boilerplate-api-config
+                  key: JWT_REFRESH_TOKEN_SECRET
+            - name: JWT_REFRESH_TOKEN_EXPIRATION_MS
+              valueFrom:
+                configMapKeyRef:
+                  name: boilerplate-api-config
+                  key: JWT_REFRESH_TOKEN_EXPIRATION_MS
+          ports:
+            - containerPort: 3000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nestjs-api-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: nestjs-app
+  ports:
+    - name: http
+      port: 3000
+      targetPort: 3000

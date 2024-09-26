@@ -49,7 +49,7 @@ async function bootstrap() {
   //! https://medium.com/@metesayan/how-to-document-your-nestjs-apis-with-swagger-42bdefd13698
   const config = new DocumentBuilder()
     .addBearerAuth()
-    .setTitle('NestJS Starter Boilderplate')
+    .setTitle('NestJS Starter Boilerplate')
     .setDescription('Description of the project')
     .setVersion('1.0')
     .addTag('nestjs-start-boilerplate')
