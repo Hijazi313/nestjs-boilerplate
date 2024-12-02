@@ -8,9 +8,11 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { PrometheusModule } from '@willsoto/nestjs-prometheus';
 import { UserModule } from './modules/users/user.module';
 import config from './config/config';
+import { GracefulShutdownModule } from 'nestjs-graceful-shutdown';
 
 @Module({
   imports: [
+    GracefulShutdownModule.forRoot(),
     PrometheusModule.register(),
     ConfigModule.forRoot({
       cache: true,

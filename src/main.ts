@@ -8,9 +8,13 @@ import helmet from 'helmet';
 import { ConfigService } from '@nestjs/config';
 import cookieParser from 'cookie-parser';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { setupGracefulShutdown } from 'nestjs-graceful-shutdown';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  setupGracefulShutdown({ app });
+
   app.use(json({ limit: '1mb' }));
   app.use(urlencoded({ extended: true, limit: '1mb' }));
   app.use(

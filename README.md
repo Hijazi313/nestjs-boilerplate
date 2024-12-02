@@ -17,6 +17,7 @@
     a) Mongodb (Deployment, Service, Volume, Volume Claim) (Done)
     b) API (Deployment, Service) (Done)
     c) ConfigMap (done)
+15. Graceful shutdown (Done)
 
 # External Resources
 
